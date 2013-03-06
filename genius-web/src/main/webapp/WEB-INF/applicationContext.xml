@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=" 
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.0.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+	default-autowire="byName">
+
+	<context:component-scan base-package="com.genius.task" />
+	<context:component-scan base-package="com.genius.timer" />
+
+
+	<!-- config -->
+	<bean id="mongo" class="com.genius.admin.helper.MongoFactoryBean">
+		<property name="address" value="10.1.0.171:27017"></property>
+<!-- 		<property name="address" value="127.0.0.1:27017"></property> -->
+	</bean>
+
+	<bean id="morphia" class="com.genius.admin.helper.MorphiaFactoryBean">
+		<property name="mapPackages" value="com.genius.model" />
+	</bean>
+	
+	<bean id="queryHelper" class="com.genius.action.QueryHelper">
+		<property name="dao" ref="dao" />
+	</bean>
+	
+	<bean id="datastore" class="com.genius.admin.helper.DataStoreFactoryBean">
+		<property name="mongo" ref="mongo" />
+		<property name="morphia" ref="morphia" />
+		<property name="dbName" value="genius" />
+		<!-- <property name="user" value="" /> -->
+		<!-- <property name="password" value="" /> -->
+	</bean>
+
+	<!-- crawler -->
+	<bean id="mirrorengineCoordinator" class="bit.mirror.core.Coordinator"
+		init-method="start" destroy-method="stop" depends-on="mirrorengineDao">
+		<property name="dao" ref="mirrorengineDao" />
+		<property name="sleepAfterCrawling" value="1000" />
+		<property name="loadSeedsOnStartup" value="0" />
+		<property name="suspended" value="true" />
+	</bean>
+	<bean id="sinaWeiboCrawler" class="bit.mirror.weibo.facade.SinaWeiboCrawler">
+		<property name="dao" ref="mirrorengineDao" />
+	</bean>
+
+	<bean id="mirrorengineDao" class="bit.mirror.dao.mongo.MongoDao"
+		init-method="start" destroy-method="stop" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo" />
+		<property name="datastore" ref="datastore" />
+	</bean>
+
+	<bean id="mirrorengineCoordinatorConfigurer"
+		class="com.genius.admin.crawler.helper.MirrorEngineCoordinatorConfigurer"
+		init-method="start" destroy-method="stop" depends-on="mirrorengineCoordinator">
+		<property name="coordinator" ref="mirrorengineCoordinator" />
+	</bean>
+
+	<bean id="dao" class="com.genius.dao.GeniusMongoDaoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo" />
+		<property name="datastore" ref="datastore" />
+	</bean>
+
+	<bean id="ecmDAO" class="com.genius.dao.ExtractConfigurationMongoDAOImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo" />
+		<property name="datastore" ref="datastore" />
+	</bean >
+	
+	<bean id="ihtDAO" class="com.genius.dao.IgnoredHotTermMongoDaoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo" />
+		<property name="datastore" ref="datastore" />
+	</bean>
+	
+	<bean id="srmDAO" class="com.genius.dao.StatisticRecordMongoDaoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo" />
+		<property name="datastore" ref="datastore" />
+	</bean >
+	<bean id="stmDAO" class="com.genius.dao.SensitiveTermMongoDaoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo" />
+		<property name="datastore" ref="datastore" />
+	</bean >
+	<bean id="dfvDAO" class="com.genius.dao.DocFeatureVectorMongoDAOImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo" />
+		<property name="datastore" ref="datastore" />
+	</bean >
+	
+	 <bean id="catDAO" class="com.genius.dao.CategoryDAOMongoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo"/>
+		<property name="datastore" ref="datastore" />
+	</bean> 
+	
+	 <bean id="knnDAO" class="com.genius.dao.ClassificationJXTDaoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo"/>
+		<property name="datastore" ref="datastore" />
+		<property name="catDAO" ref="catDAO"/>
+	</bean>
+	
+	<bean id="plsaDAO" class="com.genius.dao.PlsaDAOMongoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo"/>
+		<property name="datastore" ref="datastore" />
+		<property name="catDAO" ref="catDAO"/>
+		
+	</bean>
+	
+	<bean id="ud" class="com.genius.dao.UserDaoMongoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo"/>
+		<property name="datastore" ref="datastore" />
+	</bean>
+	<bean id="xd" class="com.genius.dao.XnewsDaoMongoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo"/>
+		<property name="datastore" ref="datastore" />
+	</bean>
+
+	
+
+	<bean id="rd" class="com.genius.recommender.dao.RecommenderDaoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo"/>
+		<property name="datastore" ref="datastore" />
+	</bean>
+	<bean id="queryLogDao" class="com.genius.dao.QueryLogDaoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo"/>
+		<property name="datastore" ref="datastore" />
+	</bean>
+	<bean id="classificationDao" class="com.genius.dao.ClassificationJXTDaoImpl"
+		init-method="init" destroy-method="close" depends-on="mongo,datastore">
+		<property name="mongo" ref="mongo"/>
+		<property name="datastore" ref="datastore" />
+	</bean>
+
+
+
+	<!-- scheduling -->
+
+	<task:scheduler id="scheduler" pool-size="10" />
+
+	<task:scheduled-tasks scheduler="scheduler">
+		<!-- Every 01:00 am -->
+		<task:scheduled ref="jobsManager" method="doFullDailyJobYesterday"
+			cron="10 59 16 * * *" />
+	</task:scheduled-tasks>
+
+	<bean id="jobsManager" class="com.genius.timer.JobsManager">
+		<property name="dailyJobs">
+			<map>
+				<!-- <entry key="crawlData" value-ref="DailyCrawlData" /> -->
+				<entry key="parseData" value-ref="dailyParseData" />
+				<!-- <entry key="clusterData" value-ref="DailyClusterData" /> -->
+			</map>
+		</property>
+	</bean>
+
+	<!-- daily task -->
+
+	<bean id="dailyCrawlData" class="com.genius.task.CrawlerTask">
+	</bean>
+
+	<bean id="dailyParseData" class="com.genius.task.ParserTask">
+	</bean>
+
+	<bean id="dailyClusterData" class="com.genius.task.ClusterTask">
+	</bean>
+
+	<bean id="logger" class="edu.bit.dlde.utils.DLDELogger"></bean>
+
+</beans>
+ 

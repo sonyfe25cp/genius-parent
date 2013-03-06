@@ -1,0 +1,98 @@
+@CHARSET "UTF-8";
+/*middle part*/
+div#main {
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+}
+
+/*cc:center div in middle part*/
+div#cc {
+	margin:0px auto;
+    border: ridge 3px;
+    border-color: #555;
+    width: 800px;
+    padding: 10px 10px;
+}
+
+/*l:li,c:content*/
+div.cclc {
+    float: left;
+    margin: 4px 6px;
+    padding: 20px 20px;
+    border: dashed 2px;
+    width: 210px;
+    height: 210px;
+    text-align: justify;
+	position:relative;
+}
+
+/*d:detail,u:ul*/
+div.ccldu {
+    padding-bottom: 6px;
+}
+
+/*m:more*/
+div.ccldm {
+    padding-top: 6px;
+    font-size: smaller;
+    text-align: right;
+}
+
+/*c:text content*/
+div.ccldc {
+    text-align: left;
+}
+
+/*t:item,i:id,a:author,t:time*/
+span.ccldmti, span.ccldmta, span.ccldmtt {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    font-weight: bold;
+    color: #555;
+    width: 42px;
+}
+
+/*bs:buttons*/
+div.cclbs {
+	background: #FFFFFF;
+	bottom: 0;
+	height: 14px;
+	margin: 0;
+	padding-left: 4px;
+	padding-right: 4px;
+	border: groove;
+	border-width: 2px;
+	border-color: #BBB;
+	position: absolute;
+	right: 16px;
+	top: 20px;
+	width: 28px;
+	z-index: 3;
+	/*visibility: hidden;*/
+}
+
+/*h:h1,a:a*/
+a.cclha {
+    font-style: oblique;
+    font-size: medium;
+    text-decoration: none;
+}
+
+/*d:detail,u:ul,a:a*/
+a.ccldua {
+    text-decoration: none;
+}
+
+a:link.ccldua {
+    color: green;
+}
+/*foot part*/
+div#foot {
+    clear: both;
+    bottom: 0;
+    width: 100%;
+    height: 3em;
+}

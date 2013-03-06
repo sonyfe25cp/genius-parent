@@ -1,0 +1,78 @@
+html,body {
+	background: #FFFFFF;
+}
+
+.username{
+	color:blue;
+	text-decoration: underline;
+	
+	
+}
+div#userinfo{
+
+	top:15px;
+	padding-left:85%;
+	display: none;
+}
+.login{
+	position:relative;
+	top:7px;
+	left:90%;
+	
+}
+
+div#search {
+	text-align: center;
+	border: none;
+}
+
+div#search_body{
+	padding-top:70px;
+}
+div#search .keyword {
+	height: 30px;
+	width: 480px;
+	line-height: 25px;
+}
+
+div#search .btn {
+	width: 72px;
+	height: 36px;
+	background: #587CD3;
+}
+
+img {
+	border: none;
+	text-align: center;
+}
+
+div#logo {
+	text-align: center;
+	height: 194px;
+	width: 472px;
+	margin: 0 auto;
+	background-image: url(../images/logo_small.png);
+	background-repeat: no-repeat;
+}
+
+#footer {
+	margin-top: 20px;
+	text-align: center;
+}
+#footer p{
+	width:400px;
+	margin:auto;
+}
+
+div#ajaxresult {
+	width: 481px;
+	border: 1px black solid;
+}
+
+.hover {
+	background: #cef;
+}
+
+.line {
+	width: 481px;
+}

@@ -1,0 +1,100 @@
+@CHARSET "UTF-8";
+
+/*cc:center div in middle part*/
+div#cc { /*background:#E0E0E0;*/
+	position: relative;
+	width: 800px;
+	margin:0 auto;
+}
+
+/* o:ol*/
+ol#cco {
+	padding: 20px;
+	border: groove;
+	border-width: 2px;
+	border-color: #FFFFFF;
+}
+
+/*l:li*/
+li.ccl {
+	margin: 5px;
+	padding: 5px;
+	text-align: justify;
+	border-bottom: groove;
+	border-bottom-width: 2px;
+	border-bottom-color: #FFFFFF;
+	position: relative;
+}
+
+/*h:h1,a:a*/
+a.cclha {
+	font-style: oblique;
+	font-size: medium;
+}
+
+/*c:content*/
+div.cclc { /*outline:double 3px;
+	outline-color:#FFF;
+	outline-color:transparent;*/
+	border: groove 1px;
+	border-color: #FFF;
+	border-color: transparent;
+	padding: 4px 6px;
+	background: transparent;
+}
+
+/*bs:buttons*/
+div.cclbs {
+	background: #FFFFFF;
+	bottom: 0;
+	height: auto;
+	margin: 0;
+	min-height: 40px;
+	padding-left: 4px;
+	padding-right: 4px;
+	border: groove;
+	border-width: 1px;
+	border-color: #BBB;
+	position: absolute;
+	right: -36px;
+	top: -2px;
+	width: 28px;
+	z-index: 3;
+	/*visibility: hidden;*/
+}
+
+/*d:detail,u:ul,a:a*/
+a.ccldua {
+	text-decoration: none;
+}
+
+a:link.ccldua {
+	color: green;
+}
+
+a:link.ccldua {
+	cursor: default;
+}
+
+/*m:more*/
+div.ccldm {
+	padding: 2px 0;
+}
+
+/*t:item,i:id,a:author,t:time*/
+span.ccldmti,span.ccldmta,span.ccldmtt {
+	font-weight: bold;
+	margin-right: 3px;
+}
+
+span.ccldmta,span.ccldmtt {
+	margin-left: 8px;
+}
+
+/*foot part*/
+div#foot {
+    clear: both;
+    bottom: 0;
+    width: 100%;
+    height: 3em;
+}
