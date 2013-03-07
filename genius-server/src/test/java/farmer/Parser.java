@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 
 import bit.crawl.store.PageStoreReader;
 import bit.crawl.store.StoredPage;
+import edu.bit.dlde.extractor.BlockExtractor;
 import edu.bit.dlde.genius.core.Gift;
 import edu.bit.dlde.genius.model.IndexForm;
-import edu.bit.dlde.pageAnalysis.BlockExtractor;
 
 
 public class Parser {

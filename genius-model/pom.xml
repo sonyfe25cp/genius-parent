@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>genius-parent</artifactId>
 		<groupId>edu.bit.dlde</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>genius-model</artifactId>

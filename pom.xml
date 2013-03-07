@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.bit.dlde</groupId>
 	<artifactId>genius-parent</artifactId>
-	<version>${parent.version}</version>
+	<version>1.0</version>
 	<name>genius parent</name>
 	<packaging>pom</packaging>
 	<modules>
