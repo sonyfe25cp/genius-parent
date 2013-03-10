@@ -5,3 +5,4 @@
 .project
 target/
 */target/
+genius-web/src/main/webapp/WEB-INF/classes/
